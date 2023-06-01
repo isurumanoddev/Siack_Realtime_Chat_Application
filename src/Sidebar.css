@@ -1,0 +1,55 @@
+.sidebar {
+
+
+  /*background-color: #e17c7c;*/
+  background-color: #ededed;
+}
+
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  /*background-color: #075e54;*/
+  color: #fff;
+  justify-content: space-between;
+  border-right: 1px solid lightgray;
+}
+
+/*.sidebar__header  {*/
+/*  width: 40px;*/
+/*  height: 40px;*/
+/*  background-color: #fff;*/
+/*  border-radius: 50%;*/
+/*  margin-right: 16px;*/
+/*}*/
+
+.sidebar__headerRight  {
+  display: flex;
+  /*justify-content: space-between;*/
+  /*min-width: 8vw;*/
+
+  align-items: center;
+}
+
+.sidebar__search {
+  display: flex;
+}
+.sidebar__input {
+  height: 40px;
+  background-color: #fff;
+  margin: 1rem 0.5rem;
+  border-radius: 28px;
+  width: 100%;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  opacity: 0.7;
+}
+
+.sidebar__chats {
+  flex: 1;
+  background-color: #fff;
+  margin: 16px;
+  border-radius: 16px;
+}

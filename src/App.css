@@ -4,11 +4,13 @@
     display: grid;
     place-items: center;
 }.app__body {
-     display: flex;
+     display: grid;
     background: #ededed;
     height: 90vh;
     width: 90vw;
     box-shadow: -1px 4px 20px 6px rgba(0,0,0,0.2);
      margin-top: -50px;
+    grid-template-columns: 0.35fr 0.65fr;
+
 
  }
