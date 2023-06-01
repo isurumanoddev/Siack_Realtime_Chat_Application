@@ -1,0 +1,19 @@
+.sideBarChat {
+    padding: 0.25rem 0.6rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    gap: 0.25rem;
+    height: 40px;
+    justify-content: center;
+}
+.sideBarChat > .MuiAvatar-root {
+    width: 25px;
+    height: 25px;
+    margin-left: 0.25rem;
+
+}
+.sidebarChat__info {
+    display: flex;
+    flex-direction: column;
+}
