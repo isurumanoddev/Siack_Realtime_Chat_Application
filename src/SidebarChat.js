@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Avatar} from "@material-ui/core";
 import "./SidebarChat.css"
 
+
 function SidebarChat({addNewChat}) {
     const [seed,setSeed] = useState()
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() *5000))
     }, []);
+
+
 
     const createChat = () => {
 

@@ -1,0 +1,105 @@
+/* Styling for the chat component */
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+     background-color: #ededed;
+}
+
+/* Styling for the chat header */
+.chat__header {
+    height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+}
+
+/* Styling for the avatar */
+
+
+/* Styling for the left section of the header */
+.chat__header__left {
+  margin-left: 10px;
+}
+
+/* Styling for the room name */
+.room__name {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Styling for the last seen text */
+.chat__header p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Styling for the right section of the header */
+.chat__headerRight {
+  margin-left: auto;
+}
+
+/* Styling for the chat body */
+.chat__body {
+  flex: 1;
+  padding:18px 10px;
+  background-color: #f5f5f5;
+  overflow-y: auto;
+
+}
+
+/* Styling for the chat footer */
+.chat__footer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+
+}
+
+/* Styling for the input field */
+.chat__footer__form {
+  flex: 1;
+  display: flex;
+}
+.chat__footer__input {
+  flex: 1;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+}
+
+/* Styling for the send button */
+.chat__footer__button {
+  display: none;
+}
+
+.chat__body__message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  position: relative;
+}
+
+.chat__body__message__user {
+    font-weight: bold;
+  font-size: xx-small;
+    margin-right: 5px;
+  position: absolute;
+  top: -15px;
+}
+
+.chat__body__message__body {
+    background-color: #DCF8C6;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.chat__body__message__time {
+    font-size: xx-small;
+    color: #888;
+    margin-left: 10px;
+}

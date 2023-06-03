@@ -1,18 +1,18 @@
-
 import './App.css';
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
+import {BrowserRouter, Route, Routes} from "react-router-dom"
 
 function App() {
-  return (
-    <div className="app">
+    return (
+        <div className="app">
 
-        <div className="app__body">
-          <Sidebar/>
-          <Chat/>
+            <div className="app__body">
+
+
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default App;
