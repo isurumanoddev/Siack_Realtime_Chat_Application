@@ -8,9 +8,11 @@ import {useStateValue} from "./StateProvider";
 
 function App() {
     const [{user}, dispatch] = useStateValue()
+    console.log(user)
 
     return (
         <div className="app">
+            {!user ? <Login/> :
 
                 <div className="app__body">
 
@@ -22,10 +24,12 @@ function App() {
                             <Route path={"/rooms/:roomId"} element={<Chat/>}/>
 
                         </Routes>
-                          {/*<Sidebar/>*/}
+                        {/*<Sidebar/>*/}
                     </BrowserRouter>
 
                 </div>
+
+            }
 
 
         </div>

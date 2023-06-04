@@ -15,22 +15,24 @@ function Chat() {
     const {roomId} = useParams()
     const [roomName, setRoomName] = useState("")
 
-    // useEffect(() => {
-    //     setSeed(Math.floor(Math.random() * 5000))
-    // }, []);
-    // const roomsCollection = collection(db, "rooms")
-    // useEffect(() => {
-    //
-    //     const roomDoc = doc(roomsCollection, roomId);
-    //    getDoc(roomDoc)
-    //        .then(snapshot => (
-    //            setRoomName(snapshot.data().name)
-    //
-    //        ))
-    //
-    //
-    //
-    // }, [roomId]);
+
+
+    useEffect(() => {
+        setSeed(Math.floor(Math.random() * 5000))
+    }, []);
+    const roomsCollection = collection(db, "rooms")
+    useEffect(() => {
+
+        const roomDoc = doc(roomsCollection, roomId);
+       getDoc(roomDoc)
+           .then(snapshot => (
+               setRoomName(snapshot.data().name)
+
+           ))
+
+
+
+    }, [roomId]);
 
 
     const sendMessage = (e) => {

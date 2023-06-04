@@ -25,7 +25,7 @@ function Login() {
 
 
     }
-    console.log("user : ",user)
+
 
     return (
         <div className="login">
