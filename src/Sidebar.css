@@ -1,12 +1,13 @@
 .sidebar {
 
-
+    flex: 0.35;
     /*background-color: #e17c7c;*/
     background-color: #ededed;
     display: flex;
     flex-direction: column;
 
 }
+
 
 .sidebar__header {
 
