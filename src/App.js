@@ -8,7 +8,15 @@ function App() {
         <div className="app">
 
             <div className="app__body">
+                <BrowserRouter>
+                    <Sidebar/>
+                    <Routes>
 
+                        <Route path={"/"} element={<Chat/>}/>
+                        <Route path={"/rooms/:roomId"} element={<Chat/>}/>
+
+                    </Routes>
+                </BrowserRouter>
 
             </div>
         </div>
