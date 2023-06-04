@@ -5,7 +5,7 @@ import {
     AttachFile, InsertEmoticon, Mic, MoreVert, Search,
 } from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import {collection, doc, getDocs} from "firebase/firestore";
+import {collection, doc, getDoc} from "firebase/firestore";
 import {db} from "./firebase";
 
 
@@ -13,17 +13,27 @@ function Chat() {
     const [input, setInput] = useState()
     const [seed, setSeed] = useState()
     const {roomId} = useParams()
-    const [roomName,setRoomName] = useState("")
+    const [roomName, setRoomName] = useState("")
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000))
     }, []);
-     const roomsCollection = collection(db, "rooms")
-     useEffect(() => {
-        const roomDoc = doc(roomsCollection,roomId)
+    const roomsCollection = collection(db, "rooms")
+    useEffect(() => {
 
-         getDocs()
-             .then()
+        const roomDoc = doc(roomsCollection, roomId);
+       getDoc(roomDoc)
+           .then(snapshot => (
+               setRoomName(snapshot.data().name)
+
+           ))
+        // getDocs(roomDoc, roomId)
+
+
+
+            // Now you can use the roomData variable as needed
+
+
 
     }, [roomId]);
 
@@ -41,7 +51,7 @@ function Chat() {
             <div className="chat__header">
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                 <div className="chat__header__left">
-                    <h3 className="room__name">Room Name</h3>
+                    <h3 className="room__name">{roomName}</h3>
                     <p>Last Seen at 2.55 pm</p>
                 </div>
                 <div className="chat__headerRight">
