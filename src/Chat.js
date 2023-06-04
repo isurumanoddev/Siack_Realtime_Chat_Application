@@ -27,11 +27,6 @@ function Chat() {
                setRoomName(snapshot.data().name)
 
            ))
-        // getDocs(roomDoc, roomId)
-
-
-
-            // Now you can use the roomData variable as needed
 
 
 
