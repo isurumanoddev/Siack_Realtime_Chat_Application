@@ -5,8 +5,9 @@ import {
     AttachFile, InsertEmoticon, Mic, MoreVert, Search,
 } from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import {collection, doc, getDoc} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs,orderBy,onSnapshot} from "firebase/firestore";
 import {db} from "./firebase";
+
 
 
 function Chat() {
@@ -14,25 +15,43 @@ function Chat() {
     const [seed, setSeed] = useState()
     const {roomId} = useParams()
     const [roomName, setRoomName] = useState("")
-
+    const [messages,setMessages] = useState([])
 
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000))
     }, []);
-    const roomsCollection = collection(db, "rooms")
+
     useEffect(() => {
-
+        const roomsCollection = collection(db, "rooms")
         const roomDoc = doc(roomsCollection, roomId);
-       getDoc(roomDoc)
-           .then(snapshot => (
-               setRoomName(snapshot.data().name)
+        const messageCollection = collection(roomDoc,"messages")
 
-           ))
+
+        getDoc(roomDoc)
+            .then(snapshot => (
+                setRoomName(snapshot.data().name)
+
+            ))
+
+        // db.collection("rooms").doc(roomId).collection("messages").onSnapshot(snapshot => (
+        //      setMessages(snapshot.docs.map(doc => ({
+        //             id:doc.id,
+        //             data:doc.data()
+        //         })))
+        // ) )
+
+        getDocs(messageCollection)
+            .then(snapshot => {
+                setMessages(snapshot.docs.map(doc => doc.data()))
+            })
 
 
 
     }, [roomId]);
+
+    console.log("Messages : ",messages)
+
 
 
     const sendMessage = (e) => {

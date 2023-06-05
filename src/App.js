@@ -20,7 +20,7 @@ function App() {
                         <Sidebar/>
                         <Routes>
 
-                            <Route path={"/"} element={<Chat/>}/>
+                            {/*<Route path={"/"} element={<Chat/>}/>*/}
                             <Route path={"/rooms/:roomId"} element={<Chat/>}/>
 
                         </Routes>
