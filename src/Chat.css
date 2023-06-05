@@ -77,11 +77,27 @@
   display: none;
 }
 
-.chat__body__message {
+.chat__send__message {
     display: flex;
     align-items: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
   position: relative;
+    background-color: #e9eae9;
+    width: fit-content;
+     padding: 8px 12px;
+    border-radius: 10px;
+
+}
+.chat__recieved__message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 14px;
+  position: relative;
+    background-color: #DCF8C6;
+    width: fit-content;
+     padding: 8px 12px;
+    border-radius: 10px;
+    margin-left: auto;
 }
 
 .chat__body__message__user {
@@ -89,14 +105,13 @@
   font-size: xx-small;
     margin-right: 5px;
   position: absolute;
-  top: -15px;
+  top: -14px;
 }
 
 .chat__body__message__body {
-    background-color: #DCF8C6;
+
     color: #000;
-    padding: 8px 12px;
-    border-radius: 10px;
+
 }
 
 .chat__body__message__time {

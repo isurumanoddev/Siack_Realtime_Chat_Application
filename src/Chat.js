@@ -5,9 +5,12 @@ import {
     AttachFile, InsertEmoticon, Mic, MoreVert, Search,
 } from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import {collection, doc, getDoc, getDocs,orderBy,onSnapshot} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, orderBy, onSnapshot, setDoc,serverTimestamp,Timestamp} from "firebase/firestore";
 import {db} from "./firebase";
 
+
+
+import {useStateValue} from "./StateProvider";
 
 
 function Chat() {
@@ -15,7 +18,10 @@ function Chat() {
     const [seed, setSeed] = useState()
     const {roomId} = useParams()
     const [roomName, setRoomName] = useState("")
-    const [messages,setMessages] = useState([])
+    const [messages, setMessages] = useState([])
+    const [isSender, setIsSender] = useState(false)
+
+    const [{user}, dispatch] = useStateValue()
 
 
     useEffect(() => {
@@ -24,8 +30,8 @@ function Chat() {
 
     useEffect(() => {
         const roomsCollection = collection(db, "rooms")
-        const roomDoc = doc(roomsCollection, roomId);
-        const messageCollection = collection(roomDoc,"messages")
+        const roomDoc = doc(roomsCollection, roomId ? roomId : "");
+        const messageCollection = collection(roomDoc, "messages")
 
 
         getDoc(roomDoc)
@@ -34,30 +40,45 @@ function Chat() {
 
             ))
 
-        // db.collection("rooms").doc(roomId).collection("messages").onSnapshot(snapshot => (
-        //      setMessages(snapshot.docs.map(doc => ({
-        //             id:doc.id,
-        //             data:doc.data()
-        //         })))
-        // ) )
-
         getDocs(messageCollection)
             .then(snapshot => {
                 setMessages(snapshot.docs.map(doc => doc.data()))
             })
 
 
-
     }, [roomId]);
 
-    console.log("Messages : ",messages)
 
 
 
     const sendMessage = (e) => {
         e.preventDefault()
+        // setInput("")
+
+        console.log("message ",input)
+
+        const roomsCollection = collection(db, "rooms")
+        const roomDoc = doc(roomsCollection, roomId ? roomId : "");
+        const messageCollection = collection(roomDoc, "messages")
+        const messageDoc = doc(messageCollection);
+
+
+        const data = {
+            message: input,
+            name: user.displayName,
+            timestamp: Timestamp.fromDate(new Date())
+
+
+        }
+        setDoc(messageDoc, data)
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
         setInput("")
-        console.log("message ", input)
+
     }
 
 
@@ -80,14 +101,17 @@ function Chat() {
 
 
             <div className="chat__body">
-                <div className="chat__body__message">
-                    <span className="chat__body__message__user">isuru manod</span>
-                    <div className="chat__body__message__body">
-                        hello how are you <span className="chat__body__message__time">3.45 pm</span>
+                {messages?.map(message => (
+
+
+                    <div className={`chat__send__message  ${!isSender && "chat__recieved__message"}`}>
+                        <span className="chat__body__message__user">{message.name}</span>
+                        <div className="chat__body__message__body">{message.message}<span
+                            className="chat__body__message__time"></span>
+                        </div>
                     </div>
+                ))}
 
-
-                </div>
 
             </div>
             <div className="chat__footer">

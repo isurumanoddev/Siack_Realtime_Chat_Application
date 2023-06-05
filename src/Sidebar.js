@@ -14,7 +14,7 @@ function Sidebar() {
     const [rooms, setRooms] = useState([])
     const [{user}, dispatch] = useStateValue();
 
-    console.log("email : ",user.photoURL)
+
 
     const roomsCollection = collection(db, "rooms")
     useEffect(() => {
@@ -27,7 +27,7 @@ function Sidebar() {
             })
     }, [])
 
-    console.log("Rooms : ", rooms)
+
     return (
         <div className="sidebar">
             <div className="sidebar__header">
