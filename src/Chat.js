@@ -5,7 +5,7 @@ import {
     AttachFile, InsertEmoticon, Mic, MoreVert, Search,
 } from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import {collection, doc, getDoc, getDocs, orderBy, onSnapshot, setDoc,serverTimestamp,Timestamp} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, orderBy, query, setDoc,Timestamp} from "firebase/firestore";
 import {db} from "./firebase";
 
 
@@ -19,7 +19,6 @@ function Chat() {
     const {roomId} = useParams()
     const [roomName, setRoomName] = useState("")
     const [messages, setMessages] = useState([])
-    const [isSender, setIsSender] = useState(false)
 
     const [{user}, dispatch] = useStateValue()
 
@@ -32,6 +31,9 @@ function Chat() {
         const roomsCollection = collection(db, "rooms")
         const roomDoc = doc(roomsCollection, roomId ? roomId : "");
         const messageCollection = collection(roomDoc, "messages")
+        // const messageDoc = doc(messageCollection)
+
+         const querySnapshot = query(messageCollection, orderBy("timestamp"));
 
 
         getDoc(roomDoc)
@@ -40,7 +42,7 @@ function Chat() {
 
             ))
 
-        getDocs(messageCollection)
+        getDocs(querySnapshot)
             .then(snapshot => {
                 setMessages(snapshot.docs.map(doc => doc.data()))
             })
@@ -104,10 +106,10 @@ function Chat() {
                 {messages?.map(message => (
 
 
-                    <div className={`chat__send__message  ${!isSender && "chat__recieved__message"}`}>
+                    <div className={`chat__send__message  ${message.name !== user.displayName && "chat__recieved__message"}`}>
                         <span className="chat__body__message__user">{message.name}</span>
                         <div className="chat__body__message__body">{message.message}<span
-                            className="chat__body__message__time"></span>
+                            className="chat__body__message__time">{new Date(message.timestamp?.toDate()).toUTCString()}</span>
                         </div>
                     </div>
                 ))}
