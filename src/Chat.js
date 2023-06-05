@@ -5,9 +5,8 @@ import {
     AttachFile, InsertEmoticon, Mic, MoreVert, Search,
 } from "@mui/icons-material";
 import {useParams} from "react-router-dom";
-import {collection, doc, getDoc, getDocs, orderBy, query, setDoc,Timestamp} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, orderBy, query, setDoc, Timestamp} from "firebase/firestore";
 import {db} from "./firebase";
-
 
 
 import {useStateValue} from "./StateProvider";
@@ -22,18 +21,17 @@ function Chat() {
 
     const [{user}, dispatch] = useStateValue()
 
+    const roomsCollection = collection(db, "rooms")
+    const roomDoc = doc(roomsCollection, roomId ? roomId : "");
+    const messageCollection = collection(roomDoc, "messages")
+    const messageDoc = doc(messageCollection);
+
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000))
     }, []);
 
     useEffect(() => {
-        const roomsCollection = collection(db, "rooms")
-        const roomDoc = doc(roomsCollection, roomId ? roomId : "");
-        const messageCollection = collection(roomDoc, "messages")
-        // const messageDoc = doc(messageCollection)
-
-         const querySnapshot = query(messageCollection, orderBy("timestamp"));
 
 
         getDoc(roomDoc)
@@ -42,27 +40,24 @@ function Chat() {
 
             ))
 
+
+    }, [roomId]);
+
+    useEffect(() => {
+        const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
         getDocs(querySnapshot)
             .then(snapshot => {
                 setMessages(snapshot.docs.map(doc => doc.data()))
             })
 
-
-    }, [roomId]);
-
-
+    }, [roomId,input])
 
 
     const sendMessage = (e) => {
         e.preventDefault()
         // setInput("")
 
-        console.log("message ",input)
-
-        const roomsCollection = collection(db, "rooms")
-        const roomDoc = doc(roomsCollection, roomId ? roomId : "");
-        const messageCollection = collection(roomDoc, "messages")
-        const messageDoc = doc(messageCollection);
+        console.log("message ", input)
 
 
         const data = {
@@ -91,7 +86,9 @@ function Chat() {
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                 <div className="chat__header__left">
                     <h3 className="room__name">{roomName}</h3>
-                    <p>Last Seen at 2.55 pm</p>
+                    <p>Last Seen at {
+                        new Date(messages[messages.length - 1]?.timestamp?.toDate()).toLocaleString()
+                    }</p>
                 </div>
                 <div className="chat__headerRight">
                     <IconButton><Search/></IconButton>
@@ -106,7 +103,8 @@ function Chat() {
                 {messages?.map(message => (
 
 
-                    <div className={`chat__send__message  ${message.name !== user.displayName && "chat__recieved__message"}`}>
+                    <div
+                        className={`chat__send__message  ${message.name !== user.displayName && "chat__recieved__message"}`}>
                         <span className="chat__body__message__user">{message.name}</span>
                         <div className="chat__body__message__body">{message.message}<span
                             className="chat__body__message__time">{new Date(message.timestamp?.toDate()).toUTCString()}</span>

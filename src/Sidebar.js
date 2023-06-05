@@ -4,7 +4,7 @@ import {Avatar, IconButton} from "@material-ui/core";
 import {Chat, DonutLarge, MoreVert, SearchOutlined} from "@mui/icons-material"
 import SidebarChat from "./SidebarChat";
 
-import {collection, getDocs} from "firebase/firestore"
+import {collection, doc, getDocs, orderBy, query} from "firebase/firestore"
 import {db} from "./firebase";
 import {useStateValue} from "./StateProvider";
 
@@ -17,6 +17,9 @@ function Sidebar() {
 
 
     const roomsCollection = collection(db, "rooms")
+
+
+
     useEffect(() => {
         getDocs(roomsCollection)
             .then(snapshot => {

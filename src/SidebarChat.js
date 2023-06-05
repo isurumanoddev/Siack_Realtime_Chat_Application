@@ -5,11 +5,29 @@ import {Link} from "react-router-dom";
 
 
 import {db} from "./firebase";
-import {collection, setDoc, doc} from "firebase/firestore";
+import {collection, setDoc, doc, getDocs, query, orderBy} from "firebase/firestore";
 
 
 function SidebarChat({addNewChat, name, id}) {
     const [seed, setSeed] = useState()
+
+
+     const [lastMessage, setLastMessage] = useState([]);
+
+    const roomsCollection = collection(db, "rooms")
+    const roomDoc = id ? doc(roomsCollection,id) : doc(roomsCollection)
+    const messageCollection = collection(roomDoc, "messages")
+    const messageDoc = doc(messageCollection);
+
+    useEffect(() => {
+        const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
+        getDocs(querySnapshot)
+            .then(snapshot => {
+                setLastMessage(snapshot.docs.map(doc => doc.data()))
+            })
+
+    }, [])
+
 
 
 
@@ -18,6 +36,7 @@ function SidebarChat({addNewChat, name, id}) {
     }, []);
 
 
+    console.log("last :::::: ",lastMessage ? lastMessage[lastMessage.length-1]?.message : "Start your chat")
     const createChat = () => {
 
         const roomName = prompt("Add the room name")
@@ -42,7 +61,7 @@ function SidebarChat({addNewChat, name, id}) {
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                 <div className="sidebarChat__info">
                     <h4>{name}</h4>
-                    <p><small>Hello</small></p>
+                    <p><small>{lastMessage[lastMessage.length-1]?.message }</small></p>
                 </div>
             </div>
         </Link>
