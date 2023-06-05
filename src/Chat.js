@@ -20,37 +20,37 @@ function Chat() {
     const [messages, setMessages] = useState([])
 
     const [{user}, dispatch] = useStateValue()
-    //
-    // const roomsCollection = collection(db, "rooms")
-    // const roomDoc = doc(roomsCollection, roomId ? roomId : "");
-    // const messageCollection = collection(roomDoc, "messages")
-    // const messageDoc = doc(messageCollection);
-    //
-    //
-    // useEffect(() => {
-    //     setSeed(Math.floor(Math.random() * 5000))
-    // }, []);
-    //
-    // useEffect(() => {
-    //
-    //
-    //     getDoc(roomDoc)
-    //         .then(snapshot => (
-    //             setRoomName(snapshot.data().name)
-    //
-    //         ))
-    //
-    //
-    // }, [roomId]);
-    //
-    // useEffect(() => {
-    //     const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
-    //     getDocs(querySnapshot)
-    //         .then(snapshot => {
-    //             setMessages(snapshot.docs.map(doc => doc.data()))
-    //         })
-    //
-    // }, [roomId,input])
+
+    const roomsCollection = collection(db, "rooms")
+    const roomDoc = doc(roomsCollection, roomId ? roomId : "");
+    const messageCollection = collection(roomDoc, "messages")
+    const messageDoc = doc(messageCollection);
+
+
+    useEffect(() => {
+        setSeed(Math.floor(Math.random() * 5000))
+    }, []);
+
+    useEffect(() => {
+
+
+        getDoc(roomDoc)
+            .then(snapshot => (
+                setRoomName(snapshot.data().name)
+
+            ))
+
+
+    }, [roomId]);
+
+    useEffect(() => {
+        const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
+        getDocs(querySnapshot)
+            .then(snapshot => {
+                setMessages(snapshot.docs.map(doc => doc.data()))
+            })
+
+    }, [roomId,input])
 
 
     const sendMessage = (e) => {
@@ -67,14 +67,14 @@ function Chat() {
 
 
         }
-        // setDoc(messageDoc, data)
-        //     .then(() => {
-        //         console.log("Document successfully written!");
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error writing document: ", error);
-        //     });
-        // setInput("")
+        setDoc(messageDoc, data)
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+        setInput("")
 
     }
 
