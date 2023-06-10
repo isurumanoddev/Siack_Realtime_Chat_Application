@@ -20,15 +20,16 @@ function Sidebar() {
 
 
 
-    useEffect(() => {
-        getDocs(roomsCollection)
-            .then(snapshot => {
-                setRooms(snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    data: doc.data()
-                })))
-            })
-    }, [])
+    // useEffect(() => {
+    //     getDocs(roomsCollection)
+    //         .then(snapshot => {
+    //             setRooms(snapshot.docs.map(doc => ({
+    //                 id: doc.id,
+    //                 data: doc.data()
+    //             })))
+    //         })
+    // }, [])
+    console.log("rooms ",rooms)
 
 
     return (
@@ -51,7 +52,7 @@ function Sidebar() {
             <div className="sidebar__chats">
                 <SidebarChat addNewChat/>
 
-                {rooms.map(room => (
+                {rooms?.map(room => (
                     <SidebarChat name={room.data.name} id={room.id} key={room.id}/>
                 ))}
 

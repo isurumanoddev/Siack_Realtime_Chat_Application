@@ -14,19 +14,19 @@ function SidebarChat({addNewChat, name, id}) {
 
      const [lastMessage, setLastMessage] = useState([]);
 
-    const roomsCollection = collection(db, "rooms")
-    const roomDoc = id ? doc(roomsCollection,id) : doc(roomsCollection)
-    const messageCollection = collection(roomDoc, "messages")
-
-
-    useEffect(() => {
-        const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
-        getDocs(querySnapshot)
-            .then(snapshot => {
-                setLastMessage(snapshot.docs.map(doc => doc.data()))
-            })
-
-    }, [id])
+    // const roomsCollection = collection(db, "projects")
+    // const roomDoc = id ? doc(roomsCollection,id) : doc(roomsCollection)
+    // const messageCollection = collection(roomDoc, "messages")
+    //
+    //
+    // useEffect(() => {
+    //     const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
+    //     getDocs(querySnapshot)
+    //         .then(snapshot => {
+    //             setLastMessage(snapshot.docs.map(doc => doc.data()))
+    //         })
+    //
+    // }, [id])
 
 
 

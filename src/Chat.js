@@ -31,26 +31,26 @@ function Chat() {
         setSeed(Math.floor(Math.random() * 5000))
     }, []);
 
-    useEffect(() => {
+    // useEffect(() => {
+    //
+    //
+    //     getDoc(roomDoc)
+    //         .then(snapshot => (
+    //             setRoomName(snapshot.data().name)
+    //
+    //         ))
+    //
+    //
+    // }, [roomId]);
 
-
-        getDoc(roomDoc)
-            .then(snapshot => (
-                setRoomName(snapshot.data().name)
-
-            ))
-
-
-    }, [roomId]);
-
-    useEffect(() => {
-        const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
-        getDocs(querySnapshot)
-            .then(snapshot => {
-                setMessages(snapshot.docs.map(doc => doc.data()))
-            })
-
-    }, [roomId,input])
+    // useEffect(() => {
+    //     const querySnapshot = query(messageCollection, orderBy("timestamp", "asc"));
+    //     getDocs(querySnapshot)
+    //         .then(snapshot => {
+    //             setMessages(snapshot.docs.map(doc => doc.data()))
+    //         })
+    //
+    // }, [roomId,input])
 
 
     const sendMessage = (e) => {
